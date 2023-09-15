@@ -10,7 +10,6 @@
                 <input class="form-control me-sm-2" type="search" placeholder="Search" value="{{ $query }}" name="q">
                 <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
             </form>
-       
             @if(isset($categories))
             @foreach ($categories as $category)
                 <div class="col-lg-4 col-md-12">

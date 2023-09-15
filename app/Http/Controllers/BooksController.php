@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Book;
 use App\Models\Category;
@@ -15,29 +16,22 @@ class BooksController extends Controller
         $this->middleware('auth');
     }
 
-    // Category Display on Home View
-    public function index(Request $request)
-    {
-        $categories = Category::all();
-        $query = '';
-        return view('/home', compact('categories','query'));
-        
-    }
 
     // Routing view Category wise
-    public function showCategory($category_id)
+    public function index($category_id)
     {
         $books = Book::where('category_id', $category_id)->get();
         return view('library.book', compact('books'));
     }
 
-    public function getBooks()
+    public function getBooks(Request $request , Book $book)
     {
-        $books = Book::all();
+        $books = Book::paginate(4);
+       // $this->authorize('getBooks', $book);
         return view('admin.book', compact('books'));
     }
 
-    public function category()
+    public function createBook()
     {
         $book = new Book();
         $category = Category::all();
@@ -104,5 +98,16 @@ class BooksController extends Controller
         $book -> delete();
         return redirect('admin/book');
        }
+
+   public function premimumBooks(){
+
+   }
+
+   public function  singleBookView($book_id){
+
+    $book = Book::where('id',$book_id)->get();
+    return view('library/singlebookview',compact('book'));
+
+   }
 
 }

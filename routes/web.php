@@ -3,6 +3,7 @@
 use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BooksController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Request;
 
@@ -17,14 +18,15 @@ use Illuminate\Support\Facades\Request;
 |
 */
 
-Route::get('/', [BooksController::class,'index'])->middleware('verified');
-Route::get('/library/book/{category_id}', [BooksController::class,'showCategory'])->name('library.book');
+Route::get('/', [CategoryController::class,'index'])->name('home');
+Route::get('/library/book/{category_id}', [BooksController::class,'index'])->name('library.book');
 Route::post('/library/book', [BooksController::class,'store'])->name('book.store');
-Route::get('/admin/createbook', [BooksController::class,'category'])->name('admin.createbook');
-Route::get('/admin/book', [BooksController::class,'getBooks'])->name('admin.book')->middleware('can:view,book');
+Route::get('/admin/createbook', [BooksController::class,'createBook'])->name('admin.createbook');//->middleware('can:view,book');
+Route::get('/admin/book', [BooksController::class,'getBooks'])->name('admin.book');//->middleware('can:view,book');
 Route::get('/admin/{book}/editbook', [BooksController::class, 'show']);//->middleware('can:view,book');
-Route::patch('/admin/{book}', [BooksController::class, 'update']);//->middleware('can:view,book');
-Route::delete('/admin/{employee}', [BooksController::class, 'destroy']);//->middleware('can:view,book');
+Route::patch('/admin/{book}', [BooksController::class, 'update']);
+Route::delete('/admin/{employee}', [BooksController::class, 'destroy']);
+Route::get('/library/{book}/singlebookview',[BooksController::class,'singleBookView']);
 
 Route::any ( '/search', function () {
     $q = Request::get ( 'q' );

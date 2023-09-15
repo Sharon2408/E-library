@@ -54,7 +54,7 @@
       </a>
       <li class="nav-link">
         <i class="bx bxs-dashboard"></i>
-        <a href="/home" class="mx-2 text-white text-decoration-none fs-4">Home</a>
+        <a href="{{ route('home') }}" class="mx-2 text-white text-decoration-none fs-4">Home</a>
       </li>
       <li href="#" class="nav-link">
         <i class="bx bx-user-check"></i>

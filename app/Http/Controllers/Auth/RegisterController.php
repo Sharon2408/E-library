@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Events\NewUserRegistrationEvent;
+use App\Events\NewUserEvent;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
@@ -72,8 +72,8 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
-        Mail::to('sharonantony2408@gmail.com')->send(new NewUserRegistrationMail($data));
-        event(new NewUserRegistrationEvent($data));
+        Mail::to($register->email)->send(new NewUserRegistrationMail($register));
+      //  event(new NewUserEvent($register));
         return $register;
     }
 }

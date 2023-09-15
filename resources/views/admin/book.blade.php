@@ -35,7 +35,7 @@
                                 <td>{{ $book->published_year }}</td>
                                 <td>{{ $book->description }}</td>
                                 <td>{{ $book->category_id }}</td>
-                                <td><a href="{{ asset('storage/' . $book->pdf) }}">View Book</td>
+                                <td><a href="{{ asset('storage/' . $book->pdf) }}" target="blank">View Book</td>
                                 <td class="text-center"><a class="btn btn-info"
                                         href="/admin/{{ $book->id }}/editbook">Edit</a></td>
                                 <td class="text-center">
@@ -50,6 +50,9 @@
                     </tbody>
                 </table>
             </div>
+        </div>
+        <div class="d-flex justify-content-center">
+            {{ $books->links() }}
         </div>
     </div>
 @endsection

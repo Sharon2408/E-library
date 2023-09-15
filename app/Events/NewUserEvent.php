@@ -10,7 +10,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class NewUserRegistrationEvent
+class NewUserEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -19,10 +19,10 @@ class NewUserRegistrationEvent
      *
      * @return void
      */
-    public $data=[];
-    public function __construct(array $data)
+    public $register;
+    public function __construct($register)
     {
-        $this->data = $data;
+        $this->register = $register;
     }
 
     /**

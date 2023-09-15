@@ -47,11 +47,11 @@
                         <li class="nav-item">
                             <a class="nav-link text-light" href="{{ route('register') }}">My Book Shelf</a>
                         </li>
-                        @can('create',App\Models\Book::class)
+                         @can('view',App\Models\Book::class)
                         <li class="nav-item">
                             <a class="nav-link text-light" href="{{ route('admin.book') }}">View Books</a>
                         </li>
-                        @endcan
+                         @endcan
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -115,7 +115,7 @@
         @yield('content')
     </main>
     </div>
-    <script>
+    {{-- <script>
         var menu_btn = document.querySelector("#menu-btn");
         var sidebar = document.querySelector("#sidebar");
         var container = document.querySelector(".my-container");
@@ -123,7 +123,7 @@
             sidebar.classList.toggle("active-nav");
             container.classList.toggle("active-cont");
         });
-    </script>
+    </script> --}}
 </body>
 
 </html>
