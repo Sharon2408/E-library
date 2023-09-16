@@ -31,16 +31,12 @@
                                          <button class="btn btn-outline-warning p-1 me-2" type="submit">Read Later</button>
                                      </form>
                                      @if (auth()->user()->subscription && $book->ispremium)
-                                         <tr>
-                                             <td>
-                                                 <a href="/library/{{ $book->id }}/singlebookview"
-                                                     class="btn btn-outline-primary p-1 me-2">See More</a>
-                                             </td>
-                                         @elseif(!auth()->user()->subscription == 0 && $book->ispremium == 1)
-                                             <td>
-                                                 <a href="" class="btn btn-outline-primary p-1 me-2">Subscribe</a>
-                                             </td>
-                                         </tr>
+                                         <a href="/library/{{ $book->id }}/singlebookview"
+                                             class="btn btn-outline-primary p-1 me-2">See More</a>
+                                     @elseif(!$book->ispremium)
+                                         <a href="/library/{{ $book->id }}/singlebookview" class="btn btn-outline-primary p-1 me-2">See More</a>
+                                     @else
+                                         <a href="/library/subscribe" class="btn btn-outline-primary p-1 me-2">Subscribe</a>
                                      @endif
                                  </div>
                              </div>

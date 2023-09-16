@@ -45,3 +45,5 @@ Auth::routes([
     'verify' => true
 ]);
 
+Route::view('/library/subscribe','/library/subscribe');
+

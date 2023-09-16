@@ -20,7 +20,11 @@
     {{-- Bootswatch --}}
     <link href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/lux/bootstrap.min.css" rel="stylesheet" />
 
-<link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet'>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    
+    <!-- MDB -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.1/mdb.min.css" rel="stylesheet" />
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js', 'resources/js/app.css'])
@@ -32,7 +36,8 @@
             <div class="container">
                 <!-- Main Wrapper -->
                 {{-- <a class="btn border-0 me-5" id="menu-btn"><i class="bx bx-menu"></i></a> --}}
-                <a class="navbar-brand text-white" href="{{ url('/') }}" style="font-family:Pacifico;font-size: 18px;">
+                <a class="navbar-brand text-white" href="{{ url('/') }}"
+                    style="font-family:Pacifico;font-size: 18px;">
                     {{ config('app.name', 'Laravel') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -47,11 +52,11 @@
                         <li class="nav-item">
                             <a class="nav-link text-light" href="/library/bookshelf">My Book Shelf</a>
                         </li>
-                         @can('view',App\Models\Book::class)
-                        <li class="nav-item">
-                            <a class="nav-link text-light" href="{{ route('admin.book') }}">View Books</a>
-                        </li>
-                         @endcan
+                        @can('view', App\Models\Book::class)
+                            <li class="nav-item">
+                                <a class="nav-link text-light" href="{{ route('admin.book') }}">View Books</a>
+                            </li>
+                        @endcan
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -71,8 +76,9 @@
                             @endif
                         @else
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle text-white" href="#" role="button"
-                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle text-white" href="#"
+                                    role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                    v-pre>
                                     {{ Auth::user()->name }}
                                 </a>
 
