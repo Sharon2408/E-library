@@ -8,7 +8,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Mail;
 
 
-class NewUserListener
+class NewUserListener implements ShouldQueue
 {
     /**
      * Create the event listener.
@@ -28,6 +28,6 @@ class NewUserListener
      */
     public function handle($event)
     {
-        Mail::to($event->register->email)->send(new NewUserRegistrationMail());
+        Mail::to($event->register->email)->send(new NewUserRegistrationMail($event));
     }
 }

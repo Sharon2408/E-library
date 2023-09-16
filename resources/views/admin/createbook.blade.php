@@ -5,8 +5,8 @@
 @endsection
 
 @section('content')
-    <h2 class="text-center"> Add New Book </h2>
-    <div class="container">
+    <div class="container mt-5">
+        <h2 class="text-center"> Add New Book </h2>
         <div class="row justify-content-center">
             <div class="col-5 border border-dark rounded-3 shadow-lg">
                 <form action={{route('book.store')}} method="post" enctype="multipart/form-data">

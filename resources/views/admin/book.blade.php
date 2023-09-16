@@ -4,17 +4,17 @@
 @endsection
 
 @section('content')
-    <div class="container-fluid p-3  mt-5 table-responsive">
+    <div class="container-fluid p-3 table-responsive">
         <div class="row">
             <div class="col-2">
                 @extends('layouts.sidenav')
             </div>
             <div class="col-10">
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                    <a class="btn btn-primary me-md-2" href={{ route('admin.createbook') }}>Add Books</a>
+                    <a class="btn btn-primary mb-2" href={{ route('admin.createbook') }}>Add Books</a>
                 </div>
                 <table class="table table-striped table-hover">
-                    <thead class="text-center">
+                    <thead class="text-center font-weight-bold">
                         <tr>
                             <td scope="col">Image</td>
                             <td scope="col">Title</td>

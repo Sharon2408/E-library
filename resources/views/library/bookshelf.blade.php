@@ -24,24 +24,10 @@
                                      <p class="card-text"><small class="text-muted">{{ $book->author }}</small></p>
                                  </div>
                                  <div class="d-flex p-2">
-
-                                     <form action="/library/{{ $book->id }}" method="post"
-                                         enctype="multipart/form-data">
-                                         @csrf
-                                         <button class="btn btn-outline-warning p-1 me-2" type="submit">Read Later</button>
-                                     </form>
-                                     @if (auth()->user()->subscription && $book->ispremium)
-                                         <tr>
-                                             <td>
-                                                 <a href="/library/{{ $book->id }}/singlebookview"
-                                                     class="btn btn-outline-primary p-1 me-2">See More</a>
-                                             </td>
-                                         @elseif(!auth()->user()->subscription == 0 && $book->ispremium == 1)
-                                             <td>
-                                                 <a href="" class="btn btn-outline-primary p-1 me-2">Subscribe</a>
-                                             </td>
-                                         </tr>
-                                     @endif
+                                 <a href=""
+                                         class="btn btn-outline-primary p-1 me-2">Remove</a>
+                                     <a href="{{ asset('storage/'.$book->pdf) }}"
+                                         class="btn btn-outline-primary p-1 me-2">Read Now</a>
                                  </div>
                              </div>
                          </div>

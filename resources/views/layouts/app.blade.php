@@ -45,7 +45,7 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link text-light" href="{{ route('register') }}">My Book Shelf</a>
+                            <a class="nav-link text-light" href="/library/bookshelf">My Book Shelf</a>
                         </li>
                          @can('view',App\Models\Book::class)
                         <li class="nav-item">
@@ -115,15 +115,7 @@
         @yield('content')
     </main>
     </div>
-    {{-- <script>
-        var menu_btn = document.querySelector("#menu-btn");
-        var sidebar = document.querySelector("#sidebar");
-        var container = document.querySelector(".my-container");
-        menu_btn.addEventListener("click", () => {
-            sidebar.classList.toggle("active-nav");
-            container.classList.toggle("active-cont");
-        });
-    </script> --}}
+
 </body>
 
 </html>

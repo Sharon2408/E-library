@@ -27,6 +27,8 @@ Route::get('/admin/{book}/editbook', [BooksController::class, 'show']);//->middl
 Route::patch('/admin/{book}', [BooksController::class, 'update']);
 Route::delete('/admin/{employee}', [BooksController::class, 'destroy']);
 Route::get('/library/{book}/singlebookview',[BooksController::class,'singleBookView']);
+Route::post('/library/{book}',[BooksController::class,'bookShelf']);
+Route::get('/library/bookshelf',[BooksController::class,'viewBookShelf']);
 
 Route::any ( '/search', function () {
     $q = Request::get ( 'q' );

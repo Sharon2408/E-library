@@ -5,8 +5,8 @@
 @endsection
 
 @section('content')
+    <div class="container mt-5">
     <h2 class="text-center"> Edit Book : {{ $book->title }} </h2>
-    <div class="container">
         <div class="row justify-content-center">
             <div class="col-5 border border-dark rounded-3 shadow-lg">
                 <form action="/admin/{{ $book->id }}" method="post" enctype="multipart/form-data">
