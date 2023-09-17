@@ -6,9 +6,10 @@
  @section('content')
      <div class="container-fluid mt-4">
          <div class="row d-flex  justify-content-md-around justify-content-lg-center">
-             <div class="col-2">
+             {{-- <div class="col-2">
                  @extends('layouts.sidenav')
-             </div>
+             </div> --}}
+             @if($books->isNotEmpty())
              @foreach ($books as $book)
                  <div class="col-lg-3 col-md-12">
                      <div class="card mb-3 float-end" style="max-width: 440px;">
@@ -36,6 +37,10 @@
              @endforeach
          </div>
      </div>
+      @else
+             <h2 class="text-center">Looks like your shelf is empty!&#128531;</h2>
+             <a class="btn btn-outline-dark col-lg-1 col-md-2" href="{{ route('home') }}">Add Now<a>
+             @endif
  @endsection
  <style>
      #main-img {

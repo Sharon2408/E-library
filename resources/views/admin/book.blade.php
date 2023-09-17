@@ -4,12 +4,12 @@
 @endsection
 
 @section('content')
-    <div class="container-fluid p-3 table-responsive">
+    <div class="container p-3 table-responsive">
         <div class="row">
-            <div class="col-2">
+            {{-- <div class="col-2">
                 @extends('layouts.sidenav')
-            </div>
-            <div class="col-10">
+            </div> --}}
+            <div class="col">
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                     <a class="btn btn-primary mb-2" href={{ route('admin.createbook') }}>Add Books</a>
                 </div>

@@ -6,9 +6,9 @@
 
 @section('content')
     <div class="container mt-5">
-        <h2 class="text-center"> Add New Book </h2>
+    <h2 class="text-center"> Add New Book </h2>
         <div class="row justify-content-center">
-            <div class="col-5 border border-dark rounded-3 shadow-lg">
+            <div class="col-5 border border-dark rounded-3 shadow-lg col-md">
                 <form action={{route('book.store')}} method="post" enctype="multipart/form-data">
                     @csrf
                     @include('layouts/bookform')

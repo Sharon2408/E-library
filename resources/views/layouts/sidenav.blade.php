@@ -1,4 +1,4 @@
-<body>
+{{-- <body>
 <style>
 * {
   margin: 0;
@@ -55,7 +55,7 @@
       </a>
       <li class="nav-link">
         <i class="bx bxs-dashboard"></i>
-        <a href="" class="mx-2 text-white text-decoration-none fs-4">Home</a>
+        <a href="{{ route('home') }}" class="mx-2 text-white text-decoration-none fs-4">Home</a>
       </li>
       <li class="nav-link">
         <i class="bx bx-user-check"></i>
@@ -68,4 +68,4 @@
     </ul>
   </div>
 </body>
-</html>
+</html> --}}

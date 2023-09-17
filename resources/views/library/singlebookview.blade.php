@@ -5,9 +5,9 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-2">
+            {{-- <div class="col-2">
                 @extends('layouts.sidenav')
-            </div>
+            </div> --}}
             @foreach ($book as $book)
                 <div class="col mt-5">
                     <img src="{{ asset('storage/' . $book->image) }}" alt="book image" height="500px">

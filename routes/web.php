@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PlanController;
 use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BooksController;
@@ -18,7 +19,12 @@ use Illuminate\Support\Facades\Request;
 |
 */
 
+// Category Controller
+
 Route::get('/', [CategoryController::class,'index'])->name('home');
+
+//Books Controller
+
 Route::get('/library/book/{category_id}', [BooksController::class,'index'])->name('library.book');
 Route::post('/library/book', [BooksController::class,'store'])->name('book.store');
 Route::get('/admin/createbook', [BooksController::class,'createBook'])->name('admin.createbook');//->middleware('can:view,book');
@@ -30,6 +36,7 @@ Route::get('/library/{book}/singlebookview',[BooksController::class,'singleBookV
 Route::post('/library/{book}',[BooksController::class,'bookShelf']);
 Route::get('/library/bookshelf',[BooksController::class,'viewBookShelf']);
 
+// Search Functionality
 Route::any ( '/search', function () {
     $q = Request::get ( 'q' );
     $searchcategory = Category::where ( 'category_name', 'LIKE', '%' . $q . '%' )->get ();
@@ -41,9 +48,16 @@ Route::any ( '/search', function () {
     }
 } )->name('search');
 
+// Authentication
 Auth::routes([
     'verify' => true
 ]);
 
-Route::view('/library/subscribe','/library/subscribe');
+// Plan Controller
+Route::get('/library/subscribe',[PlanController::class,'index'])->name('subscribe');
+Route::post('/Plan/{plan}',[PlanController::class,'store']);
+
+
+// Custom error page
+Route::view('/library/error','/library/error')->name('error');
 

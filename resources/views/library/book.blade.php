@@ -6,9 +6,9 @@
  @section('content')
      <div class="container-fluid mt-4">
          <div class="row d-flex  justify-content-md-around justify-content-lg-center">
-             <div class="col-2">
+             {{-- <div class="col-2">
                  @extends('layouts.sidenav')
-             </div>
+             </div> --}}
              @foreach ($books as $book)
                  <div class="col-lg-3 col-md-12">
                      <div class="card mb-3 float-end" style="max-width: 440px;">
@@ -23,8 +23,7 @@
                                      <p class="card-text">{{ $book->description }}</p>
                                      <p class="card-text"><small class="text-muted">{{ $book->author }}</small></p>
                                  </div>
-                                 <div class="d-flex p-2">
-
+                                 <div class="d-flex">
                                      <form action="/library/{{ $book->id }}" method="post"
                                          enctype="multipart/form-data">
                                          @csrf
@@ -36,7 +35,7 @@
                                      @elseif(!$book->ispremium)
                                          <a href="/library/{{ $book->id }}/singlebookview" class="btn btn-outline-primary p-1 me-2">See More</a>
                                      @else
-                                         <a href="/library/subscribe" class="btn btn-outline-primary p-1 me-2">Subscribe</a>
+                                         <a href="{{ route('subscribe') }}" class="btn btn-outline-primary p-1 me-2">Subscribe</a>
                                      @endif
                                  </div>
                              </div>

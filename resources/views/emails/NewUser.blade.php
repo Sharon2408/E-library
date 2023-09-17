@@ -10,6 +10,7 @@ Button Text
 
 Enjoy with Verb Voyage.
 
+Happy Reading&#128525;.<br>
 Thanks,<br>
 {{ config('app.name') }}
 </x-mail::message>

@@ -1,6 +1,6 @@
 <div class="container mt-5">
     <div class="row">
-        <div class="col">
+        <div class="col col-sm-12">
             <div class="mb-3 mt-3">
              @csrf
                 <label for="Title" class="form-label">Title</label>
