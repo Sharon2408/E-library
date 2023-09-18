@@ -40,7 +40,7 @@ class enddatemail extends Command
          //   dd($subscription_ended);
         foreach ($subscription_ended as $sub) {
          Mail::to($sub->email)->send(new SubscriptionEndDateMail($subscription_ended));
-break;
+
             //$this->info('Mail Sent'.$users->name);
         }
     }

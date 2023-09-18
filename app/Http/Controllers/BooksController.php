@@ -25,9 +25,10 @@ class BooksController extends Controller
     {
         try {
             $books = Book::where('category_id', $category_id)->get();
+
         } catch (QueryException $q) {
             //dd($q->getMessage());
-            return view('error');
+            return view('library/error');
         }
         return view('library.book', compact('books'));
     }
@@ -38,7 +39,7 @@ class BooksController extends Controller
             $books = Book::paginate(4);
         } catch (QueryException $q) {
             //dd($q->getMessage());
-            return view('error');
+            return view('library/error');
         }
         return view('admin.book', compact('books'));
     }
@@ -50,7 +51,7 @@ class BooksController extends Controller
             $category = Category::all();
         } catch (QueryException $q) {
             //dd($q->getMessage());
-            return view('error');
+            return view('library/error');
         }
         return view('admin/createbook', compact('category', 'book'));
     }
@@ -78,7 +79,7 @@ class BooksController extends Controller
             $book = Book::create($data);
         } catch (QueryException $q) {
             //dd($q->getMessage());
-            return view('error');
+            return view('library/error');
         }
         return redirect('admin/book');
     }
@@ -91,7 +92,7 @@ class BooksController extends Controller
             $categories = Category::all();
         } catch (QueryException $q) {
             //dd($q->getMessage());
-            return view('error');
+            return view('library/error');
         }
         return view('admin/editbook', compact('book', 'category', 'books', 'categories'));
     }
@@ -117,21 +118,23 @@ class BooksController extends Controller
             $book->update($data);
         } catch (QueryException $q) {
             //dd($q->getMessage());
-            return view('error');
+            return view('library/error');
         }
         return redirect('admin/book')->with('edit-feedback', 'Its already in your Shelf');
     }
-    public function destroy($id)
+    public function softDelete($id)
     {
         try {
             $book = Book::where('id', $id);
             $book->delete();
         } catch (QueryException $q) {
             //dd($q->getMessage());
-            return view('error');
+            return view('library/error');
         }
         return redirect('admin/book');
     }
+
+
 
     public function singleBookView($book_id)
     {
@@ -145,33 +148,22 @@ class BooksController extends Controller
 
     }
 
-    public function bookShelf($book_id)
+    public function showDeletedBooks()
     {
-        $userid = auth()->user()->id;
-        $books = Book::select('id')->get();
-        foreach ($books as $book) {
-            if ($book_id == $book->id) {
-                return redirect()->back()->with('bookExists-feedback', 'Its already in your Shelf');
-            } else {
-                BookShelf::create([
-                    "user_id" => $userid,
-                    "book_id" => $book_id,
-                ]);
-                return redirect()->back();
-            }
-        }
+      //  try {
+            $books = Book::whereNotNull('deleted_at')->get();
+      //  } 
+      //  catch (QueryException $q) {
+          //  return view('/library/error');
+      //  }
+        return view('/admin/showdeleted', compact('books'));
     }
 
-    public function viewBookShelf()
-    {
-        $userid = auth()->user()->id;
-        $books = DB::table('books')
-            ->join('book_shelves', 'book_shelves.book_id', '=', 'books.id')
-            ->where('book_shelves.user_id', '=', $userid)
-            ->get();
-        // dd($books);
-        return view('library/bookshelf', compact('books'));
-
+    public function restore(){
+        $data = Book::withTrashed();
+        $data->restore();
+        return redirect()->back();
     }
+
 
 }

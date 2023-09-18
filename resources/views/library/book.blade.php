@@ -27,15 +27,20 @@
                                      <form action="/library/{{ $book->id }}" method="post"
                                          enctype="multipart/form-data">
                                          @csrf
-                                         <button class="btn btn-outline-warning p-1 me-2" type="submit">Read Later</button>
+                                         <button class="btn btn-outline-warning p-1 me-2"
+                                             href="/library/{{ $book->id }}" type="submit">Read Later</button>
                                      </form>
                                      @if (auth()->user()->subscription && $book->ispremium)
-                                         <a href="/library/{{ $book->id }}/singlebookview"
-                                             class="btn btn-outline-primary p-1 me-2">See More</a>
+                                         <a href="/library/{{ $book->id }}/singlebookview">
+                                             <button class="btn btn-outline-dark p-1 me-2">See More</button>
+                                         </a>
                                      @elseif(!$book->ispremium)
-                                         <a href="/library/{{ $book->id }}/singlebookview" class="btn btn-outline-primary p-1 me-2">See More</a>
+                                         <a href="/library/{{ $book->id }}/singlebookview"><button
+                                                 class="btn btn-outline-dark p-1 me-2">See More</button>
+                                         </a>
                                      @else
-                                         <a href="{{ route('subscribe') }}" class="btn btn-outline-primary p-1 me-2">Subscribe</a>
+                                         <a href="{{ route('subscribe') }}"
+                                             class="btn btn-outline-primary p-0 me-2">Subscribe</a>
                                      @endif
                                  </div>
                              </div>

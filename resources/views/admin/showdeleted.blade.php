@@ -1,22 +1,13 @@
 @extends('layouts.app')
 @section('title')
-    Admin Books
+    Show Deleted Books
 @endsection
 
 @section('content')
-    <div class="container p-3 table-responsive">
-        <div class="row">
-            {{-- <div class="col-2">
-                @extends('layouts.sidenav')
-            </div> --}}
-            <div class="col">
-                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                    <a class="btn btn-primary mb-2" href={{ route('admin.createbook') }}>Add books</a>
-                    {{-- <a class="btn btn-warning mb-2" href={{ route('showdeleted') }}>Show deleted books</a> --}}
-                    <a class="btn btn-danger mb-2" href={{ route('restoredeleted') }}>Restore deleted books</a>
-                    <a class="btn btn-info mb-2" href="#">View Plan Details</a>
 
-                </div>
+<div class="container p-3 table-responsive">
+        <div class="row">
+            <div class="col">
                 <table class="table table-striped table-hover">
                     <thead class="text-center font-weight-bold">
                         <tr>
@@ -55,8 +46,7 @@
                 </table>
             </div>
         </div>
-        <div class="d-flex justify-content-center">
-            {{ $books->links() }}
-        </div>
+        
     </div>
+
 @endsection

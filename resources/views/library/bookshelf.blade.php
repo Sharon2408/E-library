@@ -9,7 +9,7 @@
              {{-- <div class="col-2">
                  @extends('layouts.sidenav')
              </div> --}}
-             @if($books->isNotEmpty())
+              @if($books->isNotEmpty())
              @foreach ($books as $book)
                  <div class="col-lg-3 col-md-12">
                      <div class="card mb-3 float-end" style="max-width: 440px;">
@@ -25,10 +25,14 @@
                                      <p class="card-text"><small class="text-muted">{{ $book->author }}</small></p>
                                  </div>
                                  <div class="d-flex p-2">
-                                 <a href=""
-                                         class="btn btn-outline-primary p-1 me-2">Remove</a>
-                                     <a href="{{ asset('storage/'.$book->pdf) }}"
-                                         class="btn btn-outline-primary p-1 me-2">Read Now</a>
+                                  <form action="/bookshelf/{{ $book->id }}" method="post">
+                                        @method('DELETE')
+                                        @csrf
+                                 <button class="btn btn-outline-danger p-1 me-2" type="submit">Remove</button>
+                                 </form>
+                                     <a href="{{ asset('storage/'.$book->pdf) }}">
+                                     <button class="btn btn-outline-primary p-1 me-2" type="submit">Read Now</button>
+                                     </a>
                                  </div>
                              </div>
                          </div>
@@ -37,10 +41,10 @@
              @endforeach
          </div>
      </div>
-      @else
+       @else
              <h2 class="text-center">Looks like your shelf is empty!&#128531;</h2>
              <a class="btn btn-outline-dark col-lg-1 col-md-2" href="{{ route('home') }}">Add Now<a>
-             @endif
+             @endif 
  @endsection
  <style>
      #main-img {
