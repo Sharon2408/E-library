@@ -32,7 +32,7 @@ Route::get('/library/book/{category_id}', [BooksController::class, 'index'])->na
 Route::post('/library/book', [BooksController::class, 'store'])->name('book.store');
 Route::get('/admin/createbook', [BooksController::class, 'createBook'])->name('admin.createbook'); //->middleware('can:view,book');
 Route::get('/admin/book', [BooksController::class, 'getBooks'])->name('admin.book'); //->middleware('can:view,book');
-Route::get('/admin/{book}/editbook', [BooksController::class, 'show']); //->middleware('can:view,book');
+Route::get('/admin/editbook/{book}', [BooksController::class, 'show']); //->middleware('can:view,book');
 Route::patch('/admin/{book}', [BooksController::class, 'update']);
 Route::delete('/admin/{employee}', [BooksController::class, 'softDelete']);
 Route::get('/library/{book}/singlebookview', [BooksController::class, 'singleBookView']);
@@ -40,7 +40,7 @@ Route::get('/library/{book}/singlebookview', [BooksController::class, 'singleBoo
 // BookShelf Controller
 
 Route::post('/library/{book}', [BookShelfController::class, 'bookShelf']);
-Route::get('/library/bookshelf', [BookShelfController::class, 'viewBookShelf']);
+Route::get('/library/bookshelf', [BookShelfController::class, 'viewBookShelf'])->middleware('auth');
 Route::delete('/bookshelf/{bookshelfid}', [BookShelfController::class, 'destroy']);
 
 Route::get('/admin/showdeleted',[BooksController::class,'showDeletedBooks'])->name('showdeleted');
@@ -65,6 +65,12 @@ Auth::routes([
 // Plan Controller
 Route::get('/library/subscribe', [PlanController::class, 'index'])->name('subscribe');
 Route::post('/Plan/{plan}', [PlanController::class, 'store']);
+Route::get('/admin/viewplans', [PlanController::class, 'showPlans']);
+Route::get('/admin/createplan', [PlanController::class, 'createPlan']);
+Route::post('/admin/viewplans', [PlanController::class, 'storePlan'])->name('plan.store');
+Route::get('/admin/{plan}/editplan', [PlanController::class, 'show']);
+Route::patch('/plan/{plan}', [PlanController::class, 'updatePlan']);
+Route::delete('/plan/{plan}', [planController::class, 'destroy']);
 
 
 // Custom error page

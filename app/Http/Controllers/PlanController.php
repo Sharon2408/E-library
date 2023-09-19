@@ -6,6 +6,7 @@ use App\Mail\SubscriptionMail;
 use App\Models\Plan;
 use App\Models\Subscription;
 use App\Models\User;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Mail;
@@ -74,5 +75,76 @@ class PlanController extends Controller
             return redirect('/');
         }
         
+    }
+
+    public function showPlans(){
+      $plans = Plan::all();
+      return view('/admin/viewplans',compact('plans'));
+    }
+
+
+    public function createPlan(){
+        try {
+            $plan = new Plan();
+        } catch (QueryException $q) {
+            //dd($q->getMessage());
+            return view('library/error');
+        }
+        return view('admin/createplan', compact('plan'));
+    }
+
+    public function storePlan(Request $request){
+        try {
+            $data = request()->validate([
+                'plan_name' => 'required|string',
+                'price' => 'required',
+                'plan_duration' => 'required',
+            ]);
+
+            $plan = Plan::create($data);
+        } catch (QueryException $q) {
+            //dd($q->getMessage());
+            return view('library/error');
+        }
+        return redirect('admin/viewplans')->with('plan-created', 'New Plan Added Successfuly');
+    }
+
+
+    public function show(Plan $plan)
+    {
+        try {
+            $plans = Plan::all();
+        } catch (QueryException $q) {
+            //dd($q->getMessage());
+            return view('library/error');
+        }
+        return view('admin/editplan', compact('plan', 'plans'));
+    }
+
+
+    public function updatePlan(Plan $plan, Request $request)
+    {
+        try {
+            $data = request()->validate([
+                'plan_name' => 'required|string',
+                'price' => 'required',
+                'plan_duration' => 'required',
+            ]);
+            
+            $plan->update($data);
+        } catch (QueryException $q) {
+            return view('library/error');
+        }
+        return redirect('admin/viewplans')->with('plan-updated','Plan Updated Successfully');
+    }
+
+    public function destroy($id){
+        try {
+            $plan = Plan::where('id', $id);
+            $plan->delete();
+        } catch (QueryException $q) {
+            return view('library/error');
+        }
+        return redirect('admin/viewplans')->with('plan-deleted','Plan Deleted Successfully');
     }
 }

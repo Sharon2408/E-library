@@ -6,18 +6,14 @@
 @section('content')
     <div class="container p-3 table-responsive">
         <div class="row">
-            {{-- <div class="col-2">
-                @extends('layouts.sidenav')
-            </div> --}}
-            <div class="col">
+            <div class="col-lg col-sm-12">
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                     <a class="btn btn-primary mb-2" href={{ route('admin.createbook') }}>Add books</a>
-                    {{-- <a class="btn btn-warning mb-2" href={{ route('showdeleted') }}>Show deleted books</a> --}}
                     <a class="btn btn-danger mb-2" href={{ route('restoredeleted') }}>Restore deleted books</a>
-                    <a class="btn btn-info mb-2" href="#">View Plan Details</a>
+                    <a class="btn btn-info mb-2" href="/admin/viewplans">View Plan Details</a>
 
                 </div>
-                <table class="table table-striped table-hover">
+                <table class="table table-striped table-hover overflow-scroll">
                     <thead class="text-center font-weight-bold">
                         <tr>
                             <td scope="col">Image</td>
@@ -41,7 +37,7 @@
                                 <td>{{ $book->category_id }}</td>
                                 <td><a href="{{ asset('storage/' . $book->pdf) }}" target="blank">View Book</td>
                                 <td class="text-center"><a class="btn btn-info"
-                                        href="/admin/{{ $book->id }}/editbook">Edit</a></td>
+                                        href="/admin/editbook/{{ $book->id }}">Edit</a></td>
                                 <td class="text-center">
                                     <form action="/admin/{{ $book->id }}" method="post">
                                         @method('DELETE')
@@ -60,3 +56,9 @@
         </div>
     </div>
 @endsection
+<style>
+    table {
+        display: block;
+        overflow: auto;
+    }
+</style>

@@ -10,7 +10,7 @@ class CategoryController extends Controller
     public function index(Request $request)
     {
         $categories = Category::all();
-        $query = '';
+        $query = null;
         return view('/home', compact('categories','query'));
         
     }

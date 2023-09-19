@@ -25,7 +25,7 @@ class BookShelfController extends Controller
                     "user_id" => $userid,
                     "book_id" => $book_id,
                 ]);
-                return redirect()->back();
+                return redirect()->back()->with('book-shelf', 'Added to your book shelf');
             // }
         // }
     }
@@ -51,7 +51,7 @@ class BookShelfController extends Controller
             //dd($q->getMessage());
             return view('library/error');
         }
-        return redirect()->back();
+        return redirect()->back()->with('book-shelf-removed', 'Removed from book shelf');
     }
 
 

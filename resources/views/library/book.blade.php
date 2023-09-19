@@ -6,12 +6,9 @@
  @section('content')
      <div class="container-fluid mt-4">
          <div class="row d-flex  justify-content-md-around justify-content-lg-center">
-             {{-- <div class="col-2">
-                 @extends('layouts.sidenav')
-             </div> --}}
              @foreach ($books as $book)
-                 <div class="col-lg-3 col-md-12">
-                     <div class="card mb-3 float-end" style="max-width: 440px;">
+                 <div class="col-lg-3 col-md-12" style="background-color:#c9d6df;">
+                     <div class="card mb-3 float-end" style="max-width: 440px; background-color:#C9D6DF;">
                          <div class="row g-0">
                              <div class="col-md-4">
                                  <img id="main-img" src="{{ asset('storage/' . $book->image) }}"

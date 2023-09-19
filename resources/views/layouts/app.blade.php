@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'E-Library') }}</title>
+    <title>{{ $text }}</title>
 
     <!-- Fonts -->
     {{-- <link rel="dns-prefetch" href="//fonts.bunny.net">
@@ -22,25 +22,32 @@
 
     <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet'>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
-    
+
+    {{-- Toastr --}}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js', 'resources/js/app.css'])
 </head>
+<style>
+    body {
+        background-color: #F0F5F9;
+    }
+</style>
 
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-dark shadow-sm fixed-top" data-bs-theme="dark">
             <div class="container">
-                <!-- Main Wrapper -->
-                {{-- <a class="btn border-0 me-5" id="menu-btn"><i class="bx bx-menu"></i></a> --}}
                 <a class="navbar-brand text-white" href="{{ url('/') }}"
                     style="font-family:Pacifico;font-size: 18px;">
-                    {{ config('app.name', 'Laravel') }}
+                    {{ $text }}
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                <button class="navbar-toggler shadow-none" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
+                    <i class="fa-solid fa-bars" style="color: #ffffff;"></i>
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -96,29 +103,91 @@
                 </div>
             </div>
         </nav>
-        @if (session()->has('action-feedback'))
-            <div class="alert alert-success alert-dismissible fade show col-4 text-center " role="alert">
-                <strong> Success Message : </strong> {{ session()->get('action-feedback') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @elseif(session()->has('delete-feedback'))
-            <div class="alert alert-danger alert-dismissible fade show col-4 " role="alert">
-                {{ session()->get('delete-feedback') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @elseif(session()->has('edit-feedback'))
-            <div class="alert alert-info alert-dismissible fade show col-4  text-center" role="alert">
-                {{ session()->get('edit-feedback') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
     </div>
     </div>
-    @endif
+
     <main class="py-5">
         @yield('content')
     </main>
     </div>
-
+    <script>
+        @if (session()->has('book-added'))
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true,
+                "positionClass": "toast-top-center",
+                "showDuration": "300"
+            }
+            toastr.success("{{ session()->get('book-added') }}");
+        @elseif (session()->has('book-updated'))
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true,
+                "positionClass": "toast-top-center",
+                "showDuration": "300"
+            }
+            toastr.info("{{ session()->get('book-updated') }}");
+        @elseif (session()->has('book-deleted'))
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true,
+                "positionClass": "toast-top-center",
+                "showDuration": "300"
+            }
+            toastr.error("{{ session()->get('book-deleted') }}");
+        @elseif (session()->has('book-shelf'))
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true,
+                "positionClass": "toast-top-center",
+                "showDuration": "300"
+            }
+            toastr.success("{{ session()->get('book-shelf') }}");
+        @elseif (session()->has('book-shelf-removed'))
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true,
+                "positionClass": "toast-top-center",
+                "showDuration": "300"
+            }
+            toastr.error("{{ session()->get('book-shelf-removed') }}");
+        @elseif (session()->has('plan-created'))
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true,
+                "positionClass": "toast-top-center",
+                "showDuration": "300"
+            }
+            toastr.success("{{ session()->get('plan-created') }}");
+        @elseif (session()->has('plan-updated'))
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true,
+                "positionClass": "toast-top-center",
+                "showDuration": "300"
+            }
+            toastr.success("{{ session()->get('plan-updated') }}");
+        @elseif (session()->has('plan-deleted'))
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true,
+                "positionClass": "toast-top-center",
+                "showDuration": "300"
+            }
+            toastr.warning("{{ session()->get('plan-deleted') }}");
+        @elseif (session()->has('register'))
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true,
+                "positionClass": "toast-top-center",
+                "showDuration": "300"
+            }
+            toastr.success("{{ session()->get('register') }}");
+        @endif
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
+        integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </body>
 
 </html>

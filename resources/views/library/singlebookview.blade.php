@@ -1,13 +1,10 @@
 @extends('layouts.app')
 @section('title')
-    Books
+    Read Book
 @endsection
 @section('content')
     <div class="container">
         <div class="row">
-            {{-- <div class="col-2">
-                @extends('layouts.sidenav')
-            </div> --}}
             @foreach ($book as $book)
                 <div class="col mt-5">
                     <img src="{{ asset('storage/' . $book->image) }}" alt="book image" height="500px">

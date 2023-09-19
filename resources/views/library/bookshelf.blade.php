@@ -1,14 +1,11 @@
  @extends('layouts.app')
  @section('title')
-     Books
+     Book Shelf
  @endsection
 
  @section('content')
      <div class="container-fluid mt-4">
          <div class="row d-flex  justify-content-md-around justify-content-lg-center">
-             {{-- <div class="col-2">
-                 @extends('layouts.sidenav')
-             </div> --}}
               @if($books->isNotEmpty())
              @foreach ($books as $book)
                  <div class="col-lg-3 col-md-12">
