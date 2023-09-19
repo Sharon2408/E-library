@@ -16,18 +16,19 @@ class BookShelfController extends Controller
     public function bookShelf($book_id)
     {
         $userid = auth()->user()->id;
-        $books = Book::select('id')->get();
-        // foreach ($books as $book) {
-            // if ($book_id == $book->id) {
-            //     return redirect()->back()->with('bookExists-feedback', 'Its already in your Shelf');
-            // } else {
+        $books = BookShelf::where('user_id', $userid)->where('book_id', $book_id)->first();
+        if(!$books){
+
                 BookShelf::create([
                     "user_id" => $userid,
                     "book_id" => $book_id,
                 ]);
                 return redirect()->back()->with('book-shelf', 'Added to your book shelf');
-            // }
-        // }
+            }
+            else{
+                return redirect()->back()->with('book-shelf-exist', 'This book is already in your bookshelf');
+            }
+        
     }
 
     public function viewBookShelf()

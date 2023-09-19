@@ -107,6 +107,11 @@
     </div>
 
     <main class="py-5">
+        <div class="text-center">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
         @yield('content')
     </main>
     </div>
@@ -183,6 +188,14 @@
                 "showDuration": "300"
             }
             toastr.success("{{ session()->get('register') }}");
+        @elseif (session()->has('book-shelf-exist'))
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true,
+                "positionClass": "toast-top-center",
+                "showDuration": "300"
+            }
+            toastr.warning("{{ session()->get('book-shelf-exist') }}");
         @endif
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
