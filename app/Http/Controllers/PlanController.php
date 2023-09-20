@@ -10,6 +10,8 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
+use Razorpay\Api\Api;
 
 class PlanController extends Controller
 {
@@ -21,7 +23,6 @@ class PlanController extends Controller
 
     public function store($plan_id)
     {
-
         $user_id = auth()->user()->id;
         $user_email = auth()->user()->email;
         $user_name = auth()->user()->name;
@@ -41,8 +42,7 @@ class PlanController extends Controller
             ]);
             Mail::to($user_email)->send(new SubscriptionMail($user_name));
             return redirect('/');
-        }
-        elseif($plan_id == 2){
+        } elseif ($plan_id == 2) {
             Subscription::create([
 
                 "user_id" => $user_id,
@@ -52,13 +52,12 @@ class PlanController extends Controller
                 "ispaid" => 1,
             ]);
 
-           User::where('id', $user_id)->update([
+            User::where('id', $user_id)->update([
                 'subscription' => 1,
             ]);
             Mail::to($user_email)->send(new SubscriptionMail($user_name));
             return redirect('/');
-        }
-        else{
+        } else {
             Subscription::create([
 
                 "user_id" => $user_id,
@@ -74,16 +73,18 @@ class PlanController extends Controller
             Mail::to($user_email)->send(new SubscriptionMail($user_name));
             return redirect('/');
         }
-        
+
     }
 
-    public function showPlans(){
-      $plans = Plan::all();
-      return view('/admin/viewplans',compact('plans'));
+    public function showPlans()
+    {
+        $plans = Plan::all();
+        return view('/admin/viewplans', compact('plans'));
     }
 
 
-    public function createPlan(){
+    public function createPlan()
+    {
         try {
             $plan = new Plan();
         } catch (QueryException $q) {
@@ -93,7 +94,8 @@ class PlanController extends Controller
         return view('admin/createplan', compact('plan'));
     }
 
-    public function storePlan(Request $request){
+    public function storePlan(Request $request)
+    {
         try {
             $data = request()->validate([
                 'plan_name' => 'required|string',
@@ -130,21 +132,58 @@ class PlanController extends Controller
                 'price' => 'required',
                 'plan_duration' => 'required',
             ]);
-            
+
             $plan->update($data);
         } catch (QueryException $q) {
             return view('library/error');
         }
-        return redirect('admin/viewplans')->with('plan-updated','Plan Updated Successfully');
+        return redirect('admin/viewplans')->with('plan-updated', 'Plan Updated Successfully');
     }
 
-    public function destroy($id){
+    public function destroy($id)
+    {
         try {
             $plan = Plan::where('id', $id);
             $plan->delete();
         } catch (QueryException $q) {
             return view('library/error');
         }
-        return redirect('admin/viewplans')->with('plan-deleted','Plan Deleted Successfully');
+        return redirect('admin/viewplans')->with('plan-deleted', 'Plan Deleted Successfully');
     }
+
+    private $api_id = "rzp_test_gB76NgJTAbbEVE";
+    private $api_key = "L35iY1Kb0S2TUjiPZNATvQcE";
+
+    public function payment(Request $request,$id)
+    {
+        $name = auth()->user()->name;
+        $email = auth()->user()->email;
+       // $amount = Plan::select('price')->where('id',$id)->get();
+        $receiptId = Str::random(10);
+        $api = new Api($this->api_id, $this->api_key);
+        $order = $api->order->create(
+            array(
+                'receipt' => $receiptId,
+                'amount' => $request->all()['price']*100,
+                'currency' => 'INR',
+                // 'name' => $name,
+                // 'planid' => $id
+            )
+        );
+        $response = [
+            'orderId' => $order['id'],
+            'razorpayId' => $receiptId,
+            'amount' => $request->all()['price']*100,
+            'currency' => 'INR',
+            'description' => 'testing description',
+            'email' => $email,
+            'name' => $name,
+        
+        ];
+       
+       $this->store($id);
+        return view('/payment/payment', compact('response'));
+
+    }
+
 }

@@ -7,15 +7,15 @@
      <div class="container-fluid mt-4">
          <div class="row d-flex  justify-content-md-around justify-content-lg-center">
              @foreach ($books as $book)
-                 <div class="col-lg-3 col-md-12" style="background-color:#c9d6df;">
-                     <div class="card mb-3 float-end" style="max-width: 440px; background-color:#C9D6DF;">
+                 <div class="col-lg-3 col-md-12">
+                     <div class="card mb-3 float-end" style="max-width: 440px;">
                          <div class="row g-0">
                              <div class="col-md-4">
                                  <img id="main-img" src="{{ asset('storage/' . $book->image) }}"
-                                     class="img-fluid rounded-start" alt="book_image">
+                                     class="img-fluid rounded-start" alt="book_image" >
                              </div>
                              <div class="col-md-8">
-                                 <div class="card-body">
+                                 <div class="card-body" >
                                      <h4 class="card-title">{{ $book->title }}</h4>
                                      <p class="card-text">{{ $book->description }}</p>
                                      <p class="card-text"><small class="text-muted">{{ $book->author }}</small></p>

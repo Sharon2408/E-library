@@ -22,6 +22,8 @@
 
     <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet'>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+{{-- Favicon --}}
+<link rel="icon" type="image/x-icon" href="{{ asset('favicon/logo.png') }}">
 
     {{-- Toastr --}}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -59,6 +61,9 @@
                         @can('view', App\Models\Book::class)
                             <li class="nav-item">
                                 <a class="nav-link text-light" href="{{ route('admin.book') }}">View Books</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" href="/admin/viewplans">View Plans</a>
                             </li>
                         @endcan
                     </ul>

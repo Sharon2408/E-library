@@ -10,8 +10,6 @@
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                     <a class="btn btn-primary mb-2" href={{ route('admin.createbook') }}>Add books</a>
                     <a class="btn btn-danger mb-2" href={{ route('restoredeleted') }}>Restore deleted books</a>
-                    <a class="btn btn-info mb-2" href="/admin/viewplans">View Plan Details</a>
-
                 </div>
                 <table class="table table-striped table-hover overflow-scroll">
                     <thead class="text-center font-weight-bold">
@@ -35,7 +33,7 @@
                                 <td>{{ $book->published_year }}</td>
                                 <td>{{ $book->description }}</td>
                                 <td>{{ $book->category_id }}</td>
-                                <td><a href="{{ asset('storage/' . $book->pdf) }}" target="blank">View Book</td>
+                                <td><a href="{{ asset('storage/' . $book->pdf) }}" class="btn btn-dark" target="blank">Read</td>
                                 <td class="text-center"><a class="btn btn-info"
                                         href="/admin/editbook/{{ $book->id }}">Edit</a></td>
                                 <td class="text-center">
@@ -59,6 +57,6 @@
 <style>
     table {
         display: block;
-        overflow: auto;
+        overflow-x: auto;
     }
 </style>

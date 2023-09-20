@@ -64,14 +64,14 @@ Auth::routes([
 
 // Plan Controller
 Route::get('/library/subscribe', [PlanController::class, 'index'])->name('subscribe');
-Route::post('/Plan/{plan}', [PlanController::class, 'store']);
+Route::post('/Plan/{plan}', [PlanController::class, 'payment']);
 Route::get('/admin/viewplans', [PlanController::class, 'showPlans']);
 Route::get('/admin/createplan', [PlanController::class, 'createPlan']);
 Route::post('/admin/viewplans', [PlanController::class, 'storePlan'])->name('plan.store');
 Route::get('/admin/{plan}/editplan', [PlanController::class, 'show']);
 Route::patch('/plan/{plan}', [PlanController::class, 'updatePlan']);
 Route::delete('/plan/{plan}', [planController::class, 'destroy']);
-
+Route::get('/payment/receipt', [planController::class, 'store']);
 
 // Custom error page
 Route::get('library/error', function () {

@@ -14,9 +14,11 @@
                              <h5 class="mb-0"> &#8377;{{ $plan->price }}/{{ $plan->plan_duration }}</h5>
                          </div>
                          <div class="card-footer bg-white py-3">
-                             <form action="/Plan/{{ $plan->id }}" method="post">
-                                 @csrf
+                         <form action="/Plan/{{ $plan->id }}" method="post">
+                                 <input type="text" name="price" hidden value={{ $plan->price }}>
+                                 <input type="text" name="id" hidden value={{ $plan->id }}>
                                  <button  type="submit" class="btn btn-primary btn-sm">Buy now</button>
+                                 @csrf
                              </form>
                          </div>
                      </div>
@@ -24,4 +26,8 @@
              @endforeach
          </div>
      </div>
+
+     <script>
+     
+     </script>
  @endsection
