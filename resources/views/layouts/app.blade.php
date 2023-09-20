@@ -107,11 +107,11 @@
     </div>
 
     <main class="py-5">
-        <div class="text-center">
+        {{-- <div class="text-center">
             <div class="spinner-border" role="status">
                 <span class="visually-hidden">Loading...</span>
             </div>
-        </div>
+        </div> --}}
         @yield('content')
     </main>
     </div>
