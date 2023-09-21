@@ -72,6 +72,7 @@ Route::get('/admin/{plan}/editplan', [PlanController::class, 'show']);
 Route::patch('/plan/{plan}', [PlanController::class, 'updatePlan']);
 Route::delete('/plan/{plan}', [PlanController::class, 'destroy']);
 Route::post('/payment/receipt/{planid}', [PlanController::class, 'store']);
+Route::get('/payment/receipt',[PlanController::class.'receipt']);
 
 // Custom error page
 Route::get('library/error', function () {

@@ -22,12 +22,13 @@ class PlanController extends Controller
         return view('library/subscribe', compact('plans'));
     }
 
-    public function store($plan_id)
+    public function store(Request $request, $plan_id)
     {
+        // dd($request);
         $user_id = auth()->user()->id;
         $user_email = auth()->user()->email;
         $user_name = auth()->user()->name;
-        $plan_name = Plan::select('plan_name')->where('id',$plan_id)->get();
+        $plan_name = Plan::select('plan_name')->where('id', $plan_id)->get();
         $data = [
             'email' => $user_email,
             'name' => $user_name,
@@ -49,7 +50,7 @@ class PlanController extends Controller
                 'subscription' => 1,
             ]);
             event(new SubscriptionEvent($data));
-            return redirect('/');
+            return $this->receipt($request);
         } elseif ($plan_id == 2) {
             Subscription::create([
 
@@ -64,7 +65,7 @@ class PlanController extends Controller
                 'subscription' => 1,
             ]);
             event(new SubscriptionEvent($data));
-            return redirect('/');
+            return $this->receipt($request);
         } else {
             Subscription::create([
 
@@ -80,7 +81,7 @@ class PlanController extends Controller
             ]);
 
             event(new SubscriptionEvent($data));
-            return redirect('/');
+            return $this->receipt($request);
         }
 
     }
@@ -192,17 +193,22 @@ class PlanController extends Controller
             'name' => $name,
         ];
 
-         $plan = [
-             'id' => $id
-         ];
-        return view('/payment/payment',['response' => $response, 'plan' => ['id' => $id]]);
+        $plan = [
+            'id' => $id
+        ];
+        return view('/payment/payment', ['response' => $response, 'plan' => ['id' => $id]]);
 
     }
 
-    public function receipt()
+    public function receipt(Request $request)
     {
+        // $orderid = $request->input('rzp_orderid');
+        // $receipt = [
+        //     'orderid' => $orderid,
 
-        return redirect('/');
+        // ];
+        //dd($receipt);     
+        return view('/payment/receipt');
     }
 
 }
