@@ -28,10 +28,10 @@ Route::get('/', [CategoryController::class, 'index'])->name('home');
 
 //Books Controller
 
-Route::get('/library/book/{category_id}', [BooksController::class, 'index'])->name('library.book');
+Route::get('/library/book/{category_id}', [BooksController::class, 'index'])->name('library.book');//->middleware('verified');
 Route::post('/library/book', [BooksController::class, 'store'])->name('book.store');
 Route::get('/admin/createbook', [BooksController::class, 'createBook'])->name('admin.createbook'); //->middleware('can:view,book');
-Route::get('/admin/book', [BooksController::class, 'getBooks'])->name('admin.book'); //->middleware('can:view,book');
+Route::get('/admin/book', [BooksController::class, 'getBooks'])->name('admin.book');//->middleware('can:view,App\Models\Book::class');
 Route::get('/admin/editbook/{book}', [BooksController::class, 'show']); //->middleware('can:view,book');
 Route::patch('/admin/{book}', [BooksController::class, 'update']);
 Route::delete('/admin/{employee}', [BooksController::class, 'softDelete']);
@@ -40,7 +40,7 @@ Route::get('/library/{book}/singlebookview', [BooksController::class, 'singleBoo
 // BookShelf Controller
 
 Route::post('/library/{book}', [BookShelfController::class, 'bookShelf']);
-Route::get('/library/bookshelf', [BookShelfController::class, 'viewBookShelf'])->middleware('auth');
+Route::get('/library/bookshelf', [BookShelfController::class, 'viewBookShelf'])->middleware('auth')->middleware('verified');
 Route::delete('/bookshelf/{bookshelfid}', [BookShelfController::class, 'destroy']);
 
 Route::get('/admin/showdeleted',[BooksController::class,'showDeletedBooks'])->name('showdeleted');
@@ -70,8 +70,8 @@ Route::get('/admin/createplan', [PlanController::class, 'createPlan']);
 Route::post('/admin/viewplans', [PlanController::class, 'storePlan'])->name('plan.store');
 Route::get('/admin/{plan}/editplan', [PlanController::class, 'show']);
 Route::patch('/plan/{plan}', [PlanController::class, 'updatePlan']);
-Route::delete('/plan/{plan}', [planController::class, 'destroy']);
-Route::get('/payment/receipt', [planController::class, 'store']);
+Route::delete('/plan/{plan}', [PlanController::class, 'destroy']);
+Route::post('/payment/receipt/{planid}', [PlanController::class, 'store']);
 
 // Custom error page
 Route::get('library/error', function () {

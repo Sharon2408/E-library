@@ -10,7 +10,7 @@ class Book extends Model
 {
     use HasFactory,SoftDeletes;
 
-protected $fillable = ['title','author','published_year','image','category_id','description','pdf'];
+protected $fillable = ['title','author','published_year','image','category_id','description','pdf','ispremium'];
 
     public function book(){
         return $this->belongsTo(Category::class);

@@ -1,7 +1,7 @@
 <x-mail::message>
-Hi {{ $user_name }},
+Hi {{ $data['name'] }},
 
-You have Subscribed to Verb-Voyage
+You have Subscribed to {{ $data['plan_name'] }} reader scheme of Verb-Voyage.
 
 
 Happy Reading&#128525;.<br>

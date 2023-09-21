@@ -14,6 +14,7 @@
     {{-- <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet"> --}}
 
+
     <!-- BOX ICONS CSS-->
     <link href="https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css" rel="stylesheet" />
 
@@ -22,8 +23,8 @@
 
     <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet'>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
-{{-- Favicon --}}
-<link rel="icon" type="image/x-icon" href="{{ asset('favicon/logo.png') }}">
+    {{-- Favicon --}}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon/logo.png') }}">
 
     {{-- Toastr --}}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -58,6 +59,21 @@
                         <li class="nav-item">
                             <a class="nav-link text-light" href="/library/bookshelf">My Book Shelf</a>
                         </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown"
+                                role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Categories
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown"
+                                style="max-height: 200px; overflow-y: auto;">
+                                @foreach ($categories as $categoryvalue)
+                                    <li><a class="dropdown-item"
+                                            href="{{ route('library.book', ['category_id' => $categoryvalue->category_id]) }}">
+                                            {{ $categoryvalue->category_name }}</a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </li>
                         @can('view', App\Models\Book::class)
                             <li class="nav-item">
                                 <a class="nav-link text-light" href="{{ route('admin.book') }}">View Books</a>
@@ -91,8 +107,8 @@
                                     {{ Auth::user()->name }}
                                 </a>
 
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item text-white" href="{{ route('logout') }}"
+                                <div class="dropdown-menu bg-dark dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item  text-white" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}

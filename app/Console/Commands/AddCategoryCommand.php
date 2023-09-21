@@ -43,5 +43,6 @@ class AddCategoryCommand extends Command
             $this->warn('No records added');
       
         }
+        return Command::SUCCESS;
     }
 }

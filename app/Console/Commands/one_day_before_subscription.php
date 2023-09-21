@@ -2,21 +2,20 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Subscription;
+use App\Mail\OneDayBeforeEmail;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\SubscriptionEndDateMail;
 
-class enddatemail extends Command
+class one_day_before_subscription extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'mail:subscriptionmail';
+    protected $signature = 'mail:one_day_before_subscription';
 
     /**
      * The console command description.
@@ -32,14 +31,15 @@ class enddatemail extends Command
      */
     public function handle()
     {
+        
         $currentDate = Carbon::now()->toDateString();
-        $subscription_ended = DB::table('users')
-            ->join('subscriptions', 'subscriptions.user_id', '=', 'users.id')
-            ->where('plan_end_date', $currentDate)
-            ->get();
+        $one_day_before_subscription = DB::table('users')
+        ->join('subscriptions', 'subscriptions.user_id', '=', 'users.id')
+        ->whereRaw('DATEDIFF(subscriptions.plan_end_date, CURDATE()) = ?', [1])
+        ->get();
          //   dd($subscription_ended);
-        foreach ($subscription_ended as $sub) {
-         Mail::to($sub->email)->send(new SubscriptionEndDateMail($subscription_ended));
+        foreach ($one_day_before_subscription as $sub) {
+         Mail::to($sub->email)->send(new OneDayBeforeEmail($one_day_before_subscription));
 
             //$this->info('Mail Sent'.$users->name);
         }

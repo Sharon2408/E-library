@@ -2,13 +2,13 @@
 
 namespace App\Listeners;
 
-use App\Mail\NewUserRegistrationMail;
+use App\Events\SubscriptionEvent;
+use App\Mail\SubscriptionMail;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Mail;
 
-
-class NewUserListener implements ShouldQueue
+class SubscriptionListener implements ShouldQueue
 {
     /**
      * Create the event listener.
@@ -26,8 +26,9 @@ class NewUserListener implements ShouldQueue
      * @param  object  $event
      * @return void
      */
-    public function handle($event)
+    public function handle(SubscriptionEvent $event)
     {
-        Mail::to($event->register->email)->send(new NewUserRegistrationMail($event));
+        $data = $event->data;
+        Mail::to($data['email'])->send(new SubscriptionMail($data));
     }
 }

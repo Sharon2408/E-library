@@ -36,8 +36,7 @@
                                                  class="btn btn-outline-dark p-1 me-2">See More</button>
                                          </a>
                                      @else
-                                         <a href="{{ route('subscribe') }}"
-                                             class="btn btn-outline-primary p-0 me-2">Subscribe</a>
+                                         <a href="{{ route('subscribe') }}"><button class="btn btn-outline-primary p-1 me-2">Subscribe</button></a>
                                      @endif
                                  </div>
                              </div>

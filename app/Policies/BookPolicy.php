@@ -32,10 +32,7 @@ class BookPolicy
      */
     public function view(User $user)
     {
-        return in_array($user->email, [
-            'admin@gmail.com'
-        ]);
-
+        return $user->email === 'admin@gmail.com';
     }
 
     /**

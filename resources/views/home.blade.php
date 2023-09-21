@@ -29,7 +29,7 @@
                 @if (isset($details))
                     <p>Search results for <b> {{ $query }} </b></p>
                     @foreach ($details as $searchcategory)
-                        <div class="col-lg">
+                        <div class="col-lg-4 col-md-6">
                             <a href={{ route('library.book', ['category_id' => $searchcategory->category_id]) }}>
                                 <div class="card shadow-lg" style="width: 22rem;">
                                     <img src={{ $searchcategory->image }} class="card-img-top"

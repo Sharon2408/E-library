@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\SubscriptionEvent;
 use App\Mail\SubscriptionMail;
 use App\Models\Plan;
 use App\Models\Subscription;
@@ -26,6 +27,13 @@ class PlanController extends Controller
         $user_id = auth()->user()->id;
         $user_email = auth()->user()->email;
         $user_name = auth()->user()->name;
+        $plan_name = Plan::select('plan_name')->where('id',$plan_id)->get();
+        $data = [
+            'email' => $user_email,
+            'name' => $user_name,
+            'plan_name' => $plan_name,
+        ];
+        // dd($data);
         if ($plan_id == 1) {
 
             Subscription::create([
@@ -40,7 +48,7 @@ class PlanController extends Controller
             User::where('id', $user_id)->update([
                 'subscription' => 1,
             ]);
-            Mail::to($user_email)->send(new SubscriptionMail($user_name));
+            event(new SubscriptionEvent($data));
             return redirect('/');
         } elseif ($plan_id == 2) {
             Subscription::create([
@@ -55,7 +63,7 @@ class PlanController extends Controller
             User::where('id', $user_id)->update([
                 'subscription' => 1,
             ]);
-            Mail::to($user_email)->send(new SubscriptionMail($user_name));
+            event(new SubscriptionEvent($data));
             return redirect('/');
         } else {
             Subscription::create([
@@ -70,7 +78,8 @@ class PlanController extends Controller
             User::where('id', $user_id)->update([
                 'subscription' => 1,
             ]);
-            Mail::to($user_email)->send(new SubscriptionMail($user_name));
+
+            event(new SubscriptionEvent($data));
             return redirect('/');
         }
 
@@ -78,6 +87,9 @@ class PlanController extends Controller
 
     public function showPlans()
     {
+        if (auth()->user()->email !== 'admin@gmail.com') {
+            return abort(403);
+        }
         $plans = Plan::all();
         return view('/admin/viewplans', compact('plans'));
     }
@@ -154,17 +166,17 @@ class PlanController extends Controller
     private $api_id = "rzp_test_gB76NgJTAbbEVE";
     private $api_key = "L35iY1Kb0S2TUjiPZNATvQcE";
 
-    public function payment(Request $request,$id)
+    public function payment(Request $request, $id)
     {
         $name = auth()->user()->name;
         $email = auth()->user()->email;
-       // $amount = Plan::select('price')->where('id',$id)->get();
+        // $amount = Plan::select('price')->where('id',$id)->get();
         $receiptId = Str::random(10);
         $api = new Api($this->api_id, $this->api_key);
         $order = $api->order->create(
             array(
                 'receipt' => $receiptId,
-                'amount' => $request->all()['price']*100,
+                'amount' => $request->all()['price'] * 100,
                 'currency' => 'INR',
                 // 'name' => $name,
                 // 'planid' => $id
@@ -173,17 +185,24 @@ class PlanController extends Controller
         $response = [
             'orderId' => $order['id'],
             'razorpayId' => $receiptId,
-            'amount' => $request->all()['price']*100,
+            'amount' => $request->all()['price'] * 100,
             'currency' => 'INR',
             'description' => 'testing description',
             'email' => $email,
             'name' => $name,
-        
         ];
-       
-       $this->store($id);
-        return view('/payment/payment', compact('response'));
 
+         $plan = [
+             'id' => $id
+         ];
+        return view('/payment/payment',['response' => $response, 'plan' => ['id' => $id]]);
+
+    }
+
+    public function receipt()
+    {
+
+        return redirect('/');
     }
 
 }

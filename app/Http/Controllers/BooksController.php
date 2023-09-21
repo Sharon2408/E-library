@@ -8,6 +8,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use App\Models\Book;
 use App\Models\Category;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Intervention\Image\Facades\Image;
 
@@ -35,13 +36,19 @@ class BooksController extends Controller
 
     public function getBooks(Request $request, Book $book)
     {
+       
         try {
+            if (auth()->user()->email !== 'admin@gmail.com') {
+                return abort(403); 
+            }
             $books = Book::paginate(4);
         } catch (QueryException $q) {
             //dd($q->getMessage());
             return view('library/error');
         }
+       
         return view('admin.book', compact('books'));
+        
     }
 
     public function createBook()
@@ -59,7 +66,7 @@ class BooksController extends Controller
 
     public function store(Request $request)
     {
-        try {
+       // try {
             $data = request()->validate([
                 'title' => 'required|string',
                 'author' => 'required',
@@ -67,7 +74,8 @@ class BooksController extends Controller
                 'description' => 'required',
                 'category_id' => 'required',
                 'image' => 'required|file|image|max:10000',
-                'pdf' => 'file|max:5000'
+                'pdf' => 'file|max:5000',
+                'ispremium' => 'required'
             ]);
             if ($request->hasFile('image')) {
                 $data['image'] = $request->file('image')->store('book_images', 'public');
@@ -77,10 +85,10 @@ class BooksController extends Controller
             }
 
             $book = Book::create($data);
-        } catch (QueryException $q) {
+      //  } catch (QueryException $q) {
             
-            return view('library/error');
-        }
+         //   return view('library/error');
+       // }
         return redirect('admin/book')->with('book-added','Book was Added Successfully');
     }
 

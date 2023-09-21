@@ -30,12 +30,21 @@
                 <label class="form-label" for="Select Category">Select Category</label>
                 <select class="form-control" name="category_id" id="">
                   <option value="" class="dropdown-item disabled" >--Select</option>
-                  <option value="1" class="dropdown-item disabled" >Mystery</option>
                      @foreach ($book->getCategoryid() as $categorykey => $categoryvalue)
                         <option value={{$categorykey}} {{$book->category_id == $categoryvalue ? 'selected' : ''}} >{{ $categoryvalue }}</option>
                     @endforeach 
                  </select>
                 <small class="text-danger"> {{ $errors->first('category_id') }}</small>
+                <br>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="Select Category">Is it premium?</label>
+                <select class="form-control" name="ispremium" id="">
+                 <option value=""  class="dropdown-item disabled" >--Select</option>
+                  <option value="0" class="dropdown-item" >Free</option>
+                  <option value="1" class="dropdown-item" >Paid</option>
+                 </select>
+                <small class="text-danger"> {{ $errors->first('ispremium') }}</small>
                 <br>
             </div>
               <div class="mb-3">

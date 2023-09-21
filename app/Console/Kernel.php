@@ -17,6 +17,8 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('mail:subscriptionmail')
             ->everyMinute();
+        $schedule->command('mail:one_day_before_subscription')
+            ->everyMinute();
     }
 
     /**

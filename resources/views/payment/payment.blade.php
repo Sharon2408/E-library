@@ -12,6 +12,7 @@
         "handler": function(response) {
             document.getElementById("rzp_paymentid").value = response.razorpay_payment_id;
             document.getElementById("rzp_orderid").value = response.razorpay_order_id;
+            document.getElementById("plan_id").value = {{ $plan['id'] }}; // Set the plan ID
             document.getElementById("rzp_signature").value = response.razorpay_signature;
             document.getElementById('rzp-paymentresponse').click();
         },
@@ -39,11 +40,15 @@
         e.preventDefault();
     }
 </script>
-        <form action={{ url('/payment/receipt') }} method="post" hidden>
+@foreach ($plan as $plan)
+    <form action="/payment/receipt/{{ $plan[0] }}" method="post" hidden>
             <input type="text" class="form-control" id="rzp_paymentid" name="rzp_paymentid">
+            <input type="hidden" id="plan_id" name="plan_id" value="{{ $plan[0] }}">
             <input type="text" class="form-control" id="rzp_orderid" name="rzp_orderid">
             <input type="text" class="form-control" id="rzp_signature" name="rzp_signature">
             <button type="submit" id="rzp-paymentresponse" class="btn btn-primary">Submit</button>
             @csrf
         </form>
 
+@endforeach
+        
