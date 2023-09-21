@@ -217,6 +217,14 @@
                 "showDuration": "300"
             }
             toastr.warning("{{ session()->get('book-shelf-exist') }}");
+        @elseif (session()->has('book-restored'))
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true,
+                "positionClass": "toast-top-center",
+                "showDuration": "300"
+            }
+            toastr.info("{{ session()->get('book-restored') }}");
         @endif
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
