@@ -47,4 +47,10 @@ class Handler extends ExceptionHandler
             //
         });
     }
+
+    // public function render($request, Throwable $exception)
+    // {
+    //     // Return the custom error view for all exceptions
+    //     return response()->view('library.error', [], 500);
+    // }
 }

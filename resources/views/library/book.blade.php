@@ -5,7 +5,7 @@
 
  @section('content')
      <div class="container-fluid mt-4">
-         <div class="row d-flex  justify-content-md-around justify-content-lg-center">
+         <div class="row d-flex justify-content-center">
              @foreach ($books as $book)
                  <div class="col-lg-3 col-md-12">
                      <div class="card mb-3 float-end" style="max-width: 440px;">

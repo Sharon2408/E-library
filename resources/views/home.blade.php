@@ -16,7 +16,7 @@
                     <div class="col-lg-4 col-md-6">
                         <a href={{ route('library.book', ['category_id' => $category->category_id]) }}>
                             <div class="card shadow-lg w-100">
-                                <img src={{ $category->image }} class="card-img-top" alt={{ $category->category_name }}>
+                                <img src={{ $category->image }} height="183px" class="card-img-top" alt={{ $category->category_name }}>
                                 <div class="card-body card-img-overlay text-light text-center mt-5 pt-5">
                                     <p class="card-text text-white bg-dark bg-opacity-50 mt-5 fs-4">
                                         {{ $category->category_name }}</p>

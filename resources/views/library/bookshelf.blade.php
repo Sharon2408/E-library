@@ -4,8 +4,10 @@
  @endsection
 
  @section('content')
+     @vite(['resources/css/app.css'])
+
      <div class="container-fluid mt-4">
-         <div class="row d-flex  justify-content-md-around justify-content-lg-center">
+         <div class="row d-flex justify-content-center">
               @if($books->isNotEmpty())
              @foreach ($books as $book)
                  <div class="col-lg-3 col-md-12">
@@ -44,9 +46,5 @@
              @endif 
  @endsection
  <style>
-     #main-img {
-         width: 100%;
-         height: 34vh;
-         object-fit: contain;
-     }
+ 
  </style>

@@ -80,8 +80,6 @@ class RegisterController extends Controller
         $data = [
             'email' => $data['email']
         ];
-       // Mail::to($register->email)->send(new NewUserRegistrationMail($register));
-        event(new NewUserEvent($data));
         return $register;
     }
 }

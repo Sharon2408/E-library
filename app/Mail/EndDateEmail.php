@@ -9,7 +9,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class OneDayBeforeEmail extends Mailable
+class EndDateEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -18,9 +18,11 @@ class OneDayBeforeEmail extends Mailable
      *
      * @return void
      */
-    public function __construct()
+     public $users;
+    public function __construct($users)
     {
-        //
+        $this->users = $users;
+       // dd($users);
     }
 
     /**
@@ -31,7 +33,7 @@ class OneDayBeforeEmail extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'One Day Before Email',
+            subject: 'End Date Email',
         );
     }
 
@@ -43,7 +45,7 @@ class OneDayBeforeEmail extends Mailable
     public function content()
     {
         return new Content(
-            view: 'view.name',
+            view: 'emails.EndDate',
         );
     }
 
