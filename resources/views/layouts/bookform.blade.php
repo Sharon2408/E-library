@@ -49,12 +49,12 @@
             </div>
               <div class="mb-3">
                 <label for="Upload Image" class="form-label">Upload Image</label>
-                <input type="file" class="form-control" value="{{ old('image') ??  $book->image }}" name="image" >
+                <input type="file" class="form-control" value="{{ $book->image }}" name="image" >
                 <small class="text-danger"> {{ $errors->first('image') }}</small>
             </div>
             <div class="mb-3">
                 <label for="Upload Book Pdf" class="form-label">Upload Book Pdf</label>
-                <input type="file" class="form-control" value="{{ old('pdf') ?? $book->pdf }}" name="pdf" >
+                <input type="file" class="form-control" value="{{ $book->pdf }}" name="pdf" >
                 <small class="text-danger"> {{ $errors->first('pdf') }}</small>
             </div>
         </div>

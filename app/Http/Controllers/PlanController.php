@@ -201,13 +201,7 @@ class PlanController extends Controller
     }
 
     public function receipt(Request $request)
-    {
-        // $orderid = $request->input('rzp_orderid');
-        // $receipt = [
-        //     'orderid' => $orderid,
-
-        // ];
-        //dd($receipt);     
+    {    
         return view('/payment/receipt');
     }
 
