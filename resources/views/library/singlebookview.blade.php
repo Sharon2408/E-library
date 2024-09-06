@@ -7,11 +7,11 @@
         <div class="row">
             @foreach ($book as $book)
                 <div class="col mt-5">
-                    <img src="{{ asset('storage/' . $book->image) }}" alt="book image" height="500px">
+                    <img src="{{$book->image}}" alt="book image" height="500px">
                 </div>
                 <div class="col mt-5">
                     <h1>{{ $book->title }}</h1>
-                    <p>{{ $book->detailed_description }}
+                    <p>{{ $book->description }}
                     <p>
                         <small class="float-right font-italic font-weight-bold">Author: {{ $book->author }}</small>
                         <br><br>

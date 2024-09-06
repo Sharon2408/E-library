@@ -66,7 +66,7 @@ class BooksController extends Controller
 
     public function store(Request $request)
     {
-       // try {
+        try {
             $data = request()->validate([
                 'title' => 'required|string',
                 'author' => 'required',
@@ -85,10 +85,10 @@ class BooksController extends Controller
             }
 
             $book = Book::create($data);
-      //  } catch (QueryException $q) {
+        } catch (QueryException $q) {
             
-         //   return view('library/error');
-       // }
+            return view('library/error');
+        }
         return redirect('admin/book')->with('book-added','Book was Added Successfully');
     }
 

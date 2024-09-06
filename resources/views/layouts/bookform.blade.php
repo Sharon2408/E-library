@@ -49,7 +49,7 @@
             </div>
               <div class="mb-3">
                 <label for="Upload Image" class="form-label">Upload Image</label>
-                <input type="file" class="form-control" value="{{ old('image') ?? $book->image }}" name="image" >
+                <input type="file" class="form-control" value="{{ old('image') ??  $book->image }}" name="image" >
                 <small class="text-danger"> {{ $errors->first('image') }}</small>
             </div>
             <div class="mb-3">
@@ -59,3 +59,20 @@
             </div>
         </div>
     </div>
+
+    @if(isset($book->image))
+    <div class="mb-3">
+        <label class="form-label">Current Image</label>
+        <div>
+            <img src="{{ asset('storage/' . $book->image) }}" alt="Current Image" class="img-thumbnail" style="max-width: 150px;">
+        </div>
+    </div>
+@endif
+@if(isset($book->pdf))
+    <div class="mb-3">
+        <label class="form-label">Current PDF</label>
+        <div>
+            <a href="{{ asset('storage/' . $book->pdf) }}" target="_blank" class="btn btn-outline-primary">View Current PDF</a>
+        </div>
+    </div>
+@endif

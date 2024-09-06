@@ -30,18 +30,18 @@ protected $fillable = ['title','author','published_year','image','category_id','
         {
            
         return [
-            1 => 'Mystery',
-            2 => 'Thriller',
-            3 => 'Adventure',
-            4 => 'Children',
+            1 => 'Fiction',
+            2 => 'Non-Fiction',
+            3 => 'Science',
+            4 => 'Biography',
             5 => 'Fantasy',
-            6 => 'Science Fiction',
+            6 => 'History',
             7 => 'Romance',
-            8 => 'Non-Fiction',
-            9 => 'Biography',
-            10 => 'Auto-Biography',
-            11 => 'Poetry',
-            12 => 'Travel'
+            8 => 'Horror',
+            9 => 'Thriller',
+            10 => 'Mystery',
+           // 11 => 'Poetry',
+           // 12 => 'Travel'
         ];
         }
 }

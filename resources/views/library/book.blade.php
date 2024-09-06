@@ -11,7 +11,7 @@
                      <div class="card mb-3 float-end" style="max-width: 440px;">
                          <div class="row g-0">
                              <div class="col-md-4">
-                                 <img id="main-img" src="{{ asset('storage/' . $book->image) }}"
+                                 <img id="main-img" src="{{$book->image}}"
                                      class="img-fluid rounded-start" alt="book_image" >
                              </div>
                              <div class="col-md-8">
@@ -50,7 +50,7 @@
  <style>
      #main-img {
          width: 100%;
-         height: 34vh;
+         height: 100%;
          object-fit: contain;
      }
  </style>
