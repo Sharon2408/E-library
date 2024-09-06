@@ -67,7 +67,6 @@ class BooksController extends Controller
     public function store(Request $request)
     {
         try {
-        try {
             $data = request()->validate([
                 'title' => 'required|string',
                 'author' => 'required',
